@@ -12,7 +12,7 @@ class MoviesList extends PureComponent {
   render() {
     const { movies, isLoaded, moviesLoadedAd } = this.props;
     const oneHour = 60 * 60 * 1000;
-    if ( !isLoaded || ((new Date()) - moviesLoadedAd) > oneHour ) return <h1>Loading...</h1>
+    if ( !isLoaded || ((new Date()) - new Date(moviesLoadedAd)) > oneHour ) return <h1>Loading...</h1>
     return (
       <MovieGrid>
         {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
