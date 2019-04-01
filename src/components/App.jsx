@@ -10,17 +10,16 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 // import logo from './logo.svg';
-import './App.css';
 
 import MoviesList from './MoviesList';
 import MovieDetail from './MovieDetail';
 
-// import rootReducer from './reducers';
+import rootReducer from '../reducers';
 
-// const store = createStore(rootReducer);
+const store = createStore(rootReducer);
 
 const App = () => (
-  // <Provider store={store}>
+  <Provider store={store}>
     <Router>
       <div className="App">
         <header className="App-header">
@@ -34,7 +33,7 @@ const App = () => (
         </Switch>
       </div>
     </Router>
-  // </Provider>
+  </Provider>
 );
 
 export default App;
