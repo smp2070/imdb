@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import message from './message';
+import toggle from './toggle';
+import movies from './movies';
 
 export default combineReducers({
-    message
+    toggle,
+    movies
 });

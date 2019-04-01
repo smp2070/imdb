@@ -1,22 +1,23 @@
 /* eslint react/no-did-mount-set-state: 0 */
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from '../reducers';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 // import logo from './logo.svg';
 
-import MoviesList from './MoviesList';
-import MovieDetail from './MovieDetail';
+import MoviesList from './movies/MoviesList';
+import MovieDetail from './movies/MovieDetail';
+import Toggle from './Toggle';
 
-import rootReducer from '../reducers';
+const middleware = [logger, thunk];
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
+
 
 const App = () => (
   <Provider store={store}>
@@ -27,6 +28,7 @@ const App = () => (
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
           </Link>
         </header>
+        <Toggle />
         <Switch>
           <Route exact path="/" component={MoviesList} />
           <Route path="/:id" component={MovieDetail} />
