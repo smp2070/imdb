@@ -1,4 +1,3 @@
-/* eslint react/no-did-mount-set-state: 0 */
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import Movie from './Movie';
@@ -11,16 +10,21 @@ class MoviesList extends PureComponent {
     this.props.getMovies();
   }
   render() {
+    const { movies, isLoaded, moviesLoadedAd } = this.props;
+    const oneHour = 60 * 60 * 1000;
+    if ( !isLoaded || ((new Date()) - moviesLoadedAd) > oneHour ) return <h1>Loading...</h1>
     return (
       <MovieGrid>
-        {this.props.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+        {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
       </MovieGrid>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  movies: state.movies.movies
+  movies: state.movies.movies,
+  isLoaded: state.movies.moviesLoaded,
+  moviesLoadedAd: state.movies.moviesLoadedAt
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({ getMovies }, dispatch);
 
